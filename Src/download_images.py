@@ -8,16 +8,26 @@ import urllib.request
 import os
 from tqdm import tqdm
 
-type = 'Roads' 
-mode = 'Train'
-url_file = '../Data/' + type + '/_Links/Images.txt'
-output_file_root = '../Data/' + type + '/' + mode + '/Images/' 
-counter = 0
+def download_images(type, mode, url_file_path, output_file_root)
+	"""
+	Downloads the images and stores at the desired location.
+	"""
+	counter = 0
 
-with open(url_file, 'r') as link_file:
-	image_links = link_file.readlines()
+	with open(url_file, 'r') as link_file:
+		image_links = link_file.readlines()
 
-for link in tqdm(image_links):
-	output_path = output_file_root + str(counter) + '.tiff'
-	urllib.request.urlretrieve(link, output_path)
-	counter += 1
+	for link in tqdm(image_links):
+		output_path = output_file_root + str(counter) + '.tiff'
+		urllib.request.urlretrieve(link, output_path)
+		counter += 1
+	
+if __name__ == '__main__':
+	
+	type = '/Images/' 
+	mode = 'Train'
+	
+	url_file_path = '../Data/Roads/_Links/Images.txt'
+	output_file_root = '../Data/Roads/' + mode + type 
+	
+	download_images(type, mode, url_file_path, output_file_root)
